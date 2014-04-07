@@ -1,4 +1,5 @@
 using System;
+using prep.utility;
 
 namespace prep.collections
 {
@@ -20,6 +21,22 @@ namespace prep.collections
     public override bool Equals(object obj)
     {
       return Equals(obj as Movie);
+    }
+
+    public static Condition<Movie> is_published_by(ProductionStudio studio)
+    {
+      return new IsPublishedBy(studio).matches;
+    }
+    
+    public static Condition<Movie> is_in_genre(Genre genre)
+    {
+      return new IsInGenre(genre).matches;
+    }
+
+    public static Condition<Movie> is_published_by_pixar_or_disney()
+    {
+      return x => is_published_by(ProductionStudio.Pixar).Invoke(x) ||
+                  is_published_by(ProductionStudio.Disney).Invoke(x);
     }
   }
 }
