@@ -1,5 +1,6 @@
 using System;
 using prep.utility;
+using prep.utility.matching;
 
 namespace prep.collections
 {
@@ -15,7 +16,7 @@ namespace prep.collections
     {
       if (other == null) return false;
 
-      return ReferenceEquals(this,other) || this.title == other.title;
+      return ReferenceEquals(this, other) || this.title == other.title;
     }
 
     public override bool Equals(object obj)
@@ -23,20 +24,20 @@ namespace prep.collections
       return Equals(obj as Movie);
     }
 
-    public static Condition<Movie> is_published_by(ProductionStudio studio)
+    public static IMatchAn<Movie> is_published_by(ProductionStudio studio)
     {
-      return new IsPublishedBy(studio).matches;
-    }
-    
-    public static Condition<Movie> is_in_genre(Genre genre)
-    {
-      return new IsInGenre(genre).matches;
+      return new IsPublishedBy(studio);
     }
 
-    public static Condition<Movie> is_published_by_pixar_or_disney()
+    public static IMatchAn<Movie> is_in_genre(Genre genre)
     {
-      return x => is_published_by(ProductionStudio.Pixar).Invoke(x) ||
-                  is_published_by(ProductionStudio.Disney).Invoke(x);
+      return new IsInGenre(genre);
+    }
+
+    public static IMatchAn<Movie> is_published_by_pixar_or_disney()
+    {
+      return is_published_by(ProductionStudio.Pixar)
+        .or(is_published_by(ProductionStudio.Disney);
     }
   }
 }
