@@ -18,7 +18,19 @@ namespace prep.utility.matching
 
     public IMatchAn<ItemToMatch> equal_to_any(params AttributeReturnType[] possible_values)
     {
-      throw new System.NotImplementedException();
+        IMatchAn<ItemToMatch> matcher = null;
+        foreach (var possible_value in possible_values)
+        {
+            if (matcher == null)
+            {
+                matcher = equal_to(possible_values[0]);
+            }
+            else
+            {
+                matcher = matcher.or(equal_to(possible_value));
+            }
+        }
+        return matcher;
     }
   }
 }
