@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+username = ARGV[0]
+
+system("git remote add #{username} github:#{username}/prep.git")
