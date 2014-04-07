@@ -14,47 +14,101 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies()
     {
-      return this.movies;
+      return this.movies as IEnumerable<Movie>;
     }
 
     public void add(Movie movie)
     {
-      throw new NotImplementedException();
+      foreach (Movie ExistingMovie in all_movies())
+      {
+        if (ExistingMovie.title.Equals(movie.title))
+          return;
+      }
+        this.movies.Add(movie);
     }
     
     public IEnumerable<Movie> all_movies_published_by_pixar()
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (movie.production_studio.Equals(ProductionStudio.Pixar))
+        retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (movie.production_studio.Equals(ProductionStudio.Pixar) || movie.production_studio.Equals(ProductionStudio.Disney))
+          retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> all_movies_not_published_by_pixar()
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (!movie.production_studio.Equals(ProductionStudio.Pixar))
+          retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> all_movies_published_after(int year)
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (movie.date_published.Year > year)
+          retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (movie.date_published.Year >= startingYear && movie.date_published.Year <= endingYear)
+          retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> all_kid_movies()
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (movie.genre.Equals(Genre.kids))
+          retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> all_action_movies()
     {
-      throw new NotImplementedException();
+      List<Movie> retVar = new List<Movie>();
+      foreach (Movie movie in this.movies)
+      {
+        if (movie.genre.Equals(Genre.action))
+          retVar.Add(movie);
+      }
+
+      return retVar;
     }
 
     public IEnumerable<Movie> sort_all_movies_by_title_descending()
